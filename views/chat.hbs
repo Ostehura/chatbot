@@ -1,0 +1,30 @@
+
+  
+
+<body>
+  <div class="container mt-4">
+    <h1>{{title}}</h1>
+    <div class="chat-box">
+      {{#if chat.messages}}
+        {{#each chat.messages}}
+          <div class="message">
+            <span class="sender">{{this.sender}}</span>: 
+            <span class="text">{{this.text}}</span>
+            <div class="timestamp">{{this.timestamp}}</div>
+          </div>
+        {{/each}}
+      {{else}}
+        <p>No messages yet.</p>
+      {{/if}}
+    </div>
+    <form action="/message/new" method="POST">
+      <div class="mb-3">
+        <textarea name="text" class="form-control" rows="3" placeholder="Type a message..." id="text"></textarea>
+      </div>
+      <input type="hidden" id="chatId" name="chatId" value={{chat.id}}></input>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+    <a href="/chat" class="btn btn-secondary mt-3">Back to Chat List</a>
+  </div>
+</body>
+
