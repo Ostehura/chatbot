@@ -10,10 +10,13 @@ export class Message {
   @ManyToOne(() => Chat, (chat) => chat.id)
   chatId: number;
 
-  @Column()
+  @Column({
+    type: 'nvarchar',
+    length: 2000,
+  })
   text: string;
 
-  @Column({ type: 'date', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
   @Column()
