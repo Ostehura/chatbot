@@ -8,9 +8,9 @@
       {{#if chat.messages}}
         {{#each chat.messages}}
           <div class="message">
-            <span class="sender">{{this.sender}}</span>: 
+            <span class="sender">{{this.author}}</span>: 
             <span class="text">{{this.text}}</span>
-            <div class="timestamp">{{this.timestamp}}</div>
+            <div class="timestamp">{{this.createdAt}}</div>
           </div>
         {{/each}}
       {{else}}
