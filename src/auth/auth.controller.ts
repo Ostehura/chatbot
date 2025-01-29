@@ -65,7 +65,7 @@ export class AuthController {
         error: 'Invalid Credentials',
       });
     }
-    const token = await this.authService.login(body);
+    const token = await this.authService.login(user);
     res.cookie('jwt', token.access_token, { httpOnly: true });
     return res.redirect('/');
   }
