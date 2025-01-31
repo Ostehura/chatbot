@@ -6,7 +6,6 @@ import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { MessageModule } from './message/message.module';
 import AppDataSource from './data-source';
-import { MistralModule } from './mistral/mistral.module';
 
 @Module({
   imports: [
