@@ -9,7 +9,7 @@
         {{#each chat.messages}}
           <div class="message">
             <span class="sender">{{this.author}}</span>: 
-            <span class="text">{{this.text}}</span>
+            <span class="text">{{{this.text}}}</span>
             <div class="timestamp">{{this.createdAt}}</div>
           </div>
         {{/each}}

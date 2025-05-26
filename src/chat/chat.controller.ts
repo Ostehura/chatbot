@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import * as MarkdownIt from 'markdown-it';
+import { text } from 'stream/consumers';
 
 @Controller('chat')
 export class ChatController {
@@ -34,9 +36,37 @@ export class ChatController {
     if (req.user.userId != chat.userId) {
       throw new UnauthorizedException('Have no access to chat');
     }
+    const md = new MarkdownIt({
+      html: true,
+      linkify: true,
+      typographer: true,
+    });
+    const messages = chat.messages.map((value) => {
+      return {
+        id: value.id,
+        createdAt: value.createdAt,
+        chatId: value.chatId,
+        author: value.author == 0 ? 'AI' : 'You',
+        text: value.text
+          .replace(/\r\n/g, '\n')
+          .replace(/^```(?:\w*)\n/, '')
+          .replace(/\n```$/, '')
+          .split('\n')
+          .map((str) => md.render(str.replace('\n', '')))
+          .join(''),
+      };
+    });
+
+    const renderedChat = {
+      id: chat.id,
+      title: chat.title,
+      chat: chat.userId,
+      messages: messages,
+    };
+
     return {
       title: `Chat ${chat.title}`,
-      chat,
+      chat: renderedChat,
     };
   }
 
