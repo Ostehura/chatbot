@@ -6,7 +6,7 @@ import {
   UseGuards,
   Get,
   Render,
-  Res,
+  Response,
   HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -36,7 +36,7 @@ export class AuthController {
       password: string;
       confirmPassword: string;
     },
-    @Res() res,
+    @Response() res,
   ) {
     if (body.confirmPassword !== body.password) {
       res.status(HttpStatus.UNAUTHORIZED);
@@ -52,7 +52,7 @@ export class AuthController {
   @Post('login')
   async login(
     @Body() body: { username: string; password: string },
-    @Res() res,
+    @Response() res,
   ) {
     const user = await this.authService.validateUser(
       body.username,
@@ -74,5 +74,34 @@ export class AuthController {
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('changePassword')
+  async changePassword(
+    @Response() res,
+    @Body()
+    body: {
+      username: string;
+      oldPassword: string;
+      newPassword: string;
+    },
+    @Request() req,
+  ) {
+    if (
+      await this.authService.changePassword(
+        body.username,
+        body.oldPassword,
+        body.newPassword,
+      )
+    ) {
+      res.redirect('/');
+    } else {
+      res.redirect('/user', HttpStatus.BAD_REQUEST, {
+        title: 'Change password',
+        user: req.user,
+        error: true,
+      });
+    }
   }
 }

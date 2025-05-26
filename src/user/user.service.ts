@@ -15,6 +15,13 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
+  async modifyPassword(username: string, password: string): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { username } });
+    user.password = password;
+    this.userRepository.save(user);
+    return user;
+  }
+
   async findByUsername(username: string): Promise<User | undefined> {
     return await this.userRepository.findOne({ where: { username } });
   }

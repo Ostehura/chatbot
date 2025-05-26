@@ -1,0 +1,24 @@
+<body>
+  <div class="container mt-4">
+    <h1>{{title}}</h1>
+    
+    <form action="/auth/changePassword" method="POST">
+      <div class="mb-3">
+        <input name="username" id="username"type="hidden"  value={{user.username}} />
+         <label for="oldPassword" class="form-label">Old Password:</label>
+        <input name="oldPassword" class="form-control" rows="3" placeholder="Type a message..." id="oldPassword" type="password"/>
+        <label for="newPassword" class="form-label">New Password:</label>
+        <input name="newPassword" class="form-control" rows="3" placeholder="Type a message..." id="newPassword" type="password"/>
+      </div>
+      <button type="submit" class="btn btn-primary">Change</button>
+    </form>
+    
+    <a href="/" class="btn btn-secondary mt-3">Back to main page</a>
+  </div>
+  {{#if error}}
+      <div class="alert alert-danger mb-3" role="alert">
+        Error occured: Password was not changed.
+      </div>
+    {{/if}}
+
+</body>

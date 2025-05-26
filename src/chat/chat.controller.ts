@@ -12,7 +12,6 @@ import {
 import { ChatService } from './chat.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import * as MarkdownIt from 'markdown-it';
-import { text } from 'stream/consumers';
 
 @Controller('chat')
 export class ChatController {
