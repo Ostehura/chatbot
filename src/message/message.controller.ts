@@ -20,6 +20,9 @@ export class MessageController {
     @Response() res,
     @Body() body: { text: string; chatId: number },
   ) {
+    if (!body.text || body.text.trim() === '') {
+      return res.status(400).send('Message cannot be empty');
+    }
     await this.messageService.createMessage(
       body.text,
       body.chatId,
