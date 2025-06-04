@@ -20,7 +20,20 @@ export class ChatController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async chatsPage(@Request() req) {
-    const chats = await this.chatService.getUserChats(req.user.userId);
+    const chats = (await this.chatService.getUserChats(req.user.userId)).map(
+      (chat) => ({
+        id: chat.id,
+        firstMessage:
+          chat.messages.length == 0
+            ? 'Write to start chat'
+            : chat.messages[0].text.length > 100
+              ? chat.messages[0].text.slice(0, 97) + '...'
+              : chat.messages[0].text,
+        title: chat.title,
+        userId: chat.userId,
+      }),
+    );
+
     return {
       title: 'Chat List',
       chats,
@@ -40,21 +53,23 @@ export class ChatController {
       linkify: true,
       typographer: true,
     });
-    const messages = chat.messages.map((value) => {
-      return {
-        id: value.id,
-        createdAt: value.createdAt,
-        chatId: value.chatId,
-        author: value.author == 0 ? 'AI' : 'You',
-        text: value.text
-          .replace(/\r\n/g, '\n')
-          .replace(/^```(?:\w*)\n/, '')
-          .replace(/\n```$/, '')
-          .split('\n')
-          .map((str) => md.render(str.replace('\n', '')))
-          .join(''),
-      };
-    });
+    const messages = chat.messages
+      .filter((value) => value.author >= 0)
+      .map((value) => {
+        return {
+          id: value.id,
+          createdAt: value.createdAt,
+          chatId: value.chatId,
+          author: value.author == 0 ? 'AI' : 'You',
+          text: value.text
+            .replace(/\r\n/g, '\n')
+            .replace(/^```(?:\w*)\n/, '')
+            .replace(/\n```$/, '')
+            .split('\n')
+            .map((str) => md.render(str.replace('\n', '')))
+            .join(''),
+        };
+      });
 
     const renderedChat = {
       id: chat.id,

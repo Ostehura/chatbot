@@ -41,4 +41,17 @@ export class MessageService {
     await this.messageRepository.save(response);
     return message;
   }
+
+  async addMessageWithOutAiRequest(
+    fileContent: string,
+    chatId: number,
+    userId: number,
+  ) {
+    const message = this.messageRepository.create({
+      text: fileContent,
+      chatId: chatId,
+      author: userId,
+    });
+    await this.messageRepository.save(message);
+  }
 }

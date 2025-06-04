@@ -10,10 +10,14 @@ export class ChatService {
     private readonly chatRepository: Repository<Chat>,
   ) {}
   async getUserChats(userId: number): Promise<Chat[]> {
-    return await this.chatRepository.find({
+    const chat = await this.chatRepository.find({
       where: { userId: userId },
       relations: { messages: true },
     });
+    chat.map((chat) => {
+      chat.messages.sort((lhs, rhs) => rhs.id - lhs.id);
+    });
+    return chat;
   }
   async getChat(id: number): Promise<Chat | undefined> {
     return await this.chatRepository.findOne({

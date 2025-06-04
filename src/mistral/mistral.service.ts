@@ -38,21 +38,22 @@ export class MistralService {
       try {
         // Send the request to the MistralAI API
         const client = new Mistral({ apiKey: this.apiKey });
-        console.log('MISTRAL_API_KEY:', this.apiKey);
+
         // Other free models: https://mistral.ai/technology/#pricing
         const modelResponse = await client.chat.complete({
           model: 'open-mixtral-8x22b',
           messages: messages.map((m) => {
             return {
               content: m.text,
-              role: m.author == 0 ? 'assistant' : 'user',
+              role:
+                m.author > 0 ? 'user' : m.author == 0 ? 'assistant' : 'system',
             };
           }),
         });
 
         const modelResponseContent =
           modelResponse.choices[0].message.content.toString();
-        console.log(modelResponseContent);
+
         return modelResponseContent.toString();
       } catch (error: any) {
         if (error.message.includes('429')) {

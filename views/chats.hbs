@@ -6,10 +6,10 @@
         {{#each chats}}
           <a href="/chat/{{this.id}}" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{this.name}}</h5>
+              <h5 class="mb-1">{{this.title}}</h5>
               <small>Last message</small>
             </div>
-            <p class="mb-1">Here will be last massage</p>
+            <p class="mb-1">{{this.firstMessage}}</p>
           </a>
         {{/each}}
       {{else}}

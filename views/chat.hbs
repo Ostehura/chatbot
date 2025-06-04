@@ -17,14 +17,32 @@
         <p>No messages yet.</p>
       {{/if}}
     </div>
-    <form action="/message/new" method="POST">
-      <div class="mb-3">
-        <textarea name="text" class="form-control" rows="3" placeholder="Type a message..." id="text"></textarea>
+    <div class="container text-center">
+      <div class="row align-items-start">
+         <div class="col">
+        <form action="/message/new" method="POST">
+          <div class="mb-3">
+            <textarea name="text" class="form-control" rows="3" placeholder="Type a message..." id="text"></textarea>
+          </div>
+          <input type="hidden" id="chatId" name="chatId" value={{chat.id}}></input>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+        <a href="/chat" class="btn btn-secondary mt-3">Back to Chat List</a>
       </div>
-      <input type="hidden" id="chatId" name="chatId" value={{chat.id}}></input>
-      <button type="submit" class="btn btn-primary">Send</button>
-    </form>
-    <a href="/chat" class="btn btn-secondary mt-3">Back to Chat List</a>
+        <div class="col container-sm" style="max-width: 20% ;">
+        <form action="/message/uploadFile" method="POST" enctype="multipart/form-data">
+          <label for="file">Choose a PDF file:</label>
+           <div class="mb-3">
+            <input type="file" id="file" name="file" accept="application/pdf" required />
+          </div>
+          <input type="hidden" id="chatId" name="chatId" value={{chat.id}}></input>
+  
+          <button type="submit"  class="btn btn-primary">Upload</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </body>
 
