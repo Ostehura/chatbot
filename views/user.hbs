@@ -1,17 +1,41 @@
 <body>
   <div class="container mt-4">
     <h1>{{title}}</h1>
-    
+    <div class=" card mb-3 border-warning">
+         <div class="card-header  text-warning"> <h2>Modify password</h2></div>
+         <div class="card-body">
     <form action="/auth/changePassword" method="POST">
-      <div class="mb-3">
+      
         <input name="username" id="username"type="hidden"  value={{user.username}} />
          <label for="oldPassword" class="form-label">Old Password:</label>
         <input name="oldPassword" class="form-control" rows="3" placeholder="Type a message..." id="oldPassword" type="password"/>
         <label for="newPassword" class="form-label">New Password:</label>
         <input name="newPassword" class="form-control" rows="3" placeholder="Type a message..." id="newPassword" type="password"/>
-      </div>
+<br/>
       <button type="submit" class="btn btn-primary">Change</button>
     </form>
+    </div>
+    </div>
+
+    <br/>
+    <div class="card border-danger mb-3" >
+        <div class="card-header  text-danger"> <h2>Delete account</h2></div>
+        <div class="card-body">
+       
+          
+     <form action="/auth/delete" method="POST">
+       
+         <input name="username" id="username"type="hidden"  value={{user.username}} />
+         <label for="password" class="form-label">Password Confirmation:</label>
+        <input name="password" class="form-control" rows="3" placeholder="Type a message..." id="password" type="password"/>
+       <br/>
+        <button type="submit" class="btn btn-primary btn-danger">Delete</button>
+        
+     </form>
+      </div>
+   </div>
+   </div>
+
     
     <a href="/" class="btn btn-secondary mt-3">Back to main page</a>
   </div>
@@ -21,4 +45,5 @@
       </div>
     {{/if}}
 
+  
 </body>

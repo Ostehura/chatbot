@@ -7,7 +7,7 @@ export class Message {
   id: number;
 
   @Column()
-  @ManyToOne(() => Chat, (chat) => chat.id)
+  @ManyToOne(() => Chat, (chat) => chat.id, { onDelete: 'CASCADE' })
   chatId: number;
 
   @Column({
