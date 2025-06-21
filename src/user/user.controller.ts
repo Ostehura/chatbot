@@ -7,6 +7,6 @@ export class UserController {
   @Get('')
   @Render('user')
   async changePassword(@Request() req) {
-    return { title: 'Change password', user: req.user, error: '' };
+    return { title: 'Settings', user: req.user, error: '' };
   }
 }

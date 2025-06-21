@@ -46,9 +46,7 @@ export class AuthService {
 
   async deleteUser(id: number, password: string) {
     let user = await this.userService.findById(id);
-    console.log(user);
     user = await this.validateUser(user.username, password);
-    console.log(user);
     if (user == null) return false;
     return await this.userService.deleteUser(user.id);
   }

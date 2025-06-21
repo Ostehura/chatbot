@@ -4,17 +4,24 @@
     <div class="list-group mt-3">
       {{#if chats}}
         {{#each chats}}
+        <div class="row ">
+          <div class="col-11 " >
           <a href="/chat/{{this.id}}" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{this.title}}</h5>
-              <small>Last message</small>
-
+              {{!-- <small>Last message </small> --}}
+             
             </div>
             <p class="mb-1">{{this.firstMessage}}</p>
-            <div class = "text-right">
-            
-            </div>
           </a>
+           
+          </div>
+          <div class="col ">
+             <a href="/chat/{{this.id}}/delete" class="btn-danger btn-lg" >
+              <i class="bi bi-trash-fill"></i>
+             </a>
+           </div>
+          </div>
           
         {{/each}}
       {{else}}

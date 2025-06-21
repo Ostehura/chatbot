@@ -60,4 +60,13 @@ export class ChatService {
     const chat = this.chatRepository.create({ userId: id, title: 'New chat' });
     return await this.chatRepository.save(chat);
   }
+
+  async deleteChat(userId: number, chatId: number): Promise<boolean> {
+    const chat = await this.getChat(chatId);
+    if (chat.userId != userId) {
+      return false;
+    }
+    const result = await this.chatRepository.delete({ id: chatId });
+    return result.affected !== 0;
+  }
 }
