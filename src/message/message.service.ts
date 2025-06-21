@@ -33,12 +33,14 @@ export class MessageService {
       },
     });
     const botResponse = await this.mistralService.getResponse(messages);
-    const response = this.messageRepository.create({
-      text: botResponse,
-      chatId: chatId,
-      author: 0,
-    });
-    await this.messageRepository.save(response);
+    for (let i = 0; i < botResponse.length; i += 2000) {
+      const response = this.messageRepository.create({
+        text: botResponse.slice(i, i + 2000),
+        chatId: chatId,
+        author: 0,
+      });
+      await this.messageRepository.save(response);
+    }
     return message;
   }
 
