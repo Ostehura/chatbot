@@ -2,6 +2,13 @@
   
 
 <body>
+  <script>
+  window.addEventListener('load', function() {
+    const chatBox = document.querySelector('.chat-box');
+    chatBox.scrollTop = chatBox.scrollHeight;
+  });
+</script>
+
   <div class="container mt-4">
     <h1>{{title}}</h1>
     <div class="chat-box">
