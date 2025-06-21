@@ -107,7 +107,6 @@ export class AuthController {
   @Post('delete')
   @UseGuards(JwtAuthGuard)
   async deleteUser(@Request() req, @Body() body: { password: string }) {
-    console.log('+', req.user.userId, ' ', body.password);
     this.authService.deleteUser(req.user.userId, body.password);
   }
 
