@@ -14,12 +14,14 @@ export class Chat {
   id: number;
 
   @Column()
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
   userId: number;
 
   @Column({ nullable: true })
   title: string;
 
-  @OneToMany(() => Message, (message) => message.chatId)
+  @OneToMany(() => Message, (message) => message.chatId, {
+    cascade: ['remove'],
+  })
   messages: Message[];
 }

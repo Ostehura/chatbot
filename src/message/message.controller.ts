@@ -8,7 +8,6 @@ import {
   UseInterceptors,
   UploadedFile,
   ParseFilePipe,
-  MaxFileSizeValidator,
   FileTypeValidator,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';

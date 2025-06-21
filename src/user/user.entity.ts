@@ -12,6 +12,6 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Chat, (chat) => chat.userId)
+  @OneToMany(() => Chat, (chat) => chat.userId, { cascade: ['remove'] })
   chats: Chat[];
 }
