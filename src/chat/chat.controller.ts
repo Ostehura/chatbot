@@ -90,4 +90,11 @@ export class ChatController {
     const chat = await this.chatService.createChat(req.user.userId);
     return res.redirect(`/chat/${chat.id}`);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/delete')
+  async deleteChat(@Param('id') id: number, @Request() req, @Response() res) {
+    await this.chatService.deleteChat(req.user.userId, id);
+    return res.redirect('/chat');
+  }
 }
